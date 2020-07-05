@@ -1,4 +1,4 @@
-"""ask URL Configuration
+"""mysite URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.1/topics/http/urls/
@@ -15,16 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls import include, url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url('', include('qa.urls')),
-    url(r'^polls/', include('polls.urls')),
-    url('login/', include('qa.urls')),
-    url('signup/', include('qa.urls')),
-    path('question/<int:id>/', include('qa.urls')),
-    url('ask/', include('qa.urls')),
-    url('popular/', include('qa.urls')),
-    url('new/', include('qa.urls')),
 ]
