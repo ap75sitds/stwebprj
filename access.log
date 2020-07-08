@@ -1,0 +1,2 @@
+127.0.0.1 - - [07/Jul/2020:18:50:14 +0300] "GET / HTTP/1.1" 200 14 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:77.0) Gecko/20100101 Firefox/77.0"
+127.0.0.1 - - [07/Jul/2020:18:50:19 +0300] "GET /admin HTTP/1.1" 404 152 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:77.0) Gecko/20100101 Firefox/77.0"
