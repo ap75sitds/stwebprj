@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>My pagination</title>
+</head>
+<body>
+    <h2>Latest Questions {{ page }}</h2>
+    {% for each in paginator %}
+        <p><a href='{{ link }}{{ each.id }}/'>{{ each.id }} - {{ each.title }}</a></p>
+    {% endfor %}
+</body>
+</html>
