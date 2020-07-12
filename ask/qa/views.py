@@ -45,8 +45,8 @@ def ask_new(request):
         if form.is_valid():
             quest = form.save(commit=False)
             quest.added_at = timezone.now()
-            quest.author = request.user
-            quest.likes = request.user
+            quest.author = User.objects.get(pk=1)
+            #quest.likes = request.user
             quest.save()
             return redirect('one_question', qid=quest.pk) # one_question from usrl.py - name
     else:
