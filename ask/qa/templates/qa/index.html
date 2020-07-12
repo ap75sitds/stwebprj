@@ -7,12 +7,22 @@
 <body>
     <h2>{{ title }}</h2>
     <p>{{ text }}</p>
+    <h2>{{ qid }}</h2>
     <ul>Answer on the question
         {% for each in answers %}
             <li>{{ each }}</li>
         {% endfor %}
     </ul>
-    <p></p>
+    
+    <p>Here I'd like to put form for answers</p>
+    {% block content %}
+    <h3>New Answer</h3>
+    <form method="POST" class='post-form'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type='submit'>Save</button>
 
+    </form>
+    {% endblock %}
 </body>
 </html>
