@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
+from django.contrib.auth.models import User
 from django.utils import timezone
 
 from .models import Question, Answer
@@ -45,7 +46,7 @@ def ask_new(request):
             quest = form.save(commit=False)
             quest.added_at = timezone.now()
             quest.author = request.user
-            #quest.likes = request.user
+            quest.likes = request.user
             quest.save()
             return redirect('one_question', qid=quest.pk) # one_question from usrl.py - name
     else:

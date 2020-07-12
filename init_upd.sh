@@ -9,5 +9,3 @@ sudo pip3 install --upgrade django==2.1
 sudo pip3 install --upgrade gunicorn
 sudo mv etc/nginx.conf etc/nginx_alex.conf
 sudo mv etc/nginx_b.conf etc/nginx.conf
-
-
