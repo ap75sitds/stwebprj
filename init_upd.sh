@@ -7,7 +7,7 @@ sudo ln -s /usr/bin/python3.5 /usr/bin/python3
 sudo pip3 install --upgrade pip
 sudo pip3 install --upgrade django==2.1
 sudo pip3 install --upgrade gunicorn
-sudo mv nginx.conf nginx_alex.conf
-sudo mv nginx_b.conf nginx.conf
+sudo mv etc/nginx.conf etc/nginx_alex.conf
+sudo mv etc/nginx_b.conf etc/nginx.conf
 
 
