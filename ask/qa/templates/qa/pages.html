@@ -6,6 +6,7 @@
 </head>
 <body>
     <h2>Latest Questions {{ page }}</h2>
+    <h2> {{ user }} | {{ coc }}</h2>
     {% for each in paginator %}
         <p><a href='{{ link }}{{ each.id }}/'>{{ each.id }} - {{ each.title }}</a></p>
     {% endfor %}

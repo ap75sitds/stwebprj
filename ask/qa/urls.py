@@ -9,5 +9,8 @@ urlpatterns = [
     path('question/<int:qid>/', views.answer_new, name='one_question'),
     path('popular/', views.popular_qst),
     path('ask/', views.ask_new),
-    path('', views.post_ten_page)
+    path('new/', views.post_ten_page),
+    path('signup/', views.signup, name='signup'),
+    path('login/', views.login_user, name='login'),
+    path('', views.post_ten_page, name='main')
 ]
