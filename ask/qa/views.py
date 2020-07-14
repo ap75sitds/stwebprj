@@ -2,14 +2,14 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.hashers import check_password
 
 from django.utils import timezone
 
 from .models import Question, Answer
-from .forms import AskForm, AnswerForm
+from .forms import AskForm, AnswerForm, SignUpForm
 
 def test(request, *args, **kwargs):
     return HttpResponse('Firstclass App')
@@ -27,15 +27,17 @@ def login_user(request):
 def signup(request):
     if request.method == 'POST':
         print('request.POST',request.POST)
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            new_user = request.POST.get('username')
-            login(request, new_user)
+            #new_user = request.POST.get('username')
+            new_user = form.cleaned_data.get('username')
+            mypass = form.cleaned_data.get('password1')
+            user = authenticate(username=new_user, password=mypass)
+            login_user(request, user)
         return redirect('main')
     else:
-        form = UserCreationForm()
-        print(form)
+        form = SignUpForm()
         return render(request, 'qa/signup.html', {'form':form})
 
 def one_question(request, *args, **kwargs):
