@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password, make_password
 
 from django.utils import timezone
 
@@ -29,12 +29,19 @@ def signup(request):
         print('request.POST',request.POST)
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
-            #new_user = request.POST.get('username')
+            hashpass = form.save(commit=False) #before real save to db
             new_user = form.cleaned_data.get('username')
-            mypass = form.cleaned_data.get('password1')
-            user = authenticate(username=new_user, password=mypass)
-            login_user(request, user)
+            password_open = form.cleaned_data.get('password')
+            password = make_password(password_open) #create HASH password
+            hashpass.password = password
+            hashpass.save()
+            form.save_m2m()
+            user = authenticate(username=new_user, password=password)
+            if user is not None:
+                login(request, user)
+            print(password)
+            print('Name of user ===============',new_user)
+            print('Name of user ===============',user)
         return redirect('main')
     else:
         form = SignUpForm()
