@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.hashers import check_password, make_password
+from django.contrib.sessions.models import Session
 
 from django.utils import timezone
 
@@ -13,6 +14,14 @@ from .forms import AskForm, AnswerForm, SignUpForm
 
 def test(request, *args, **kwargs):
     return HttpResponse('Firstclass App')
+
+def logout(request):
+    Session.objects.all().delete()
+    sessid = request.COOKIES.get('sessid')
+    print(sessid)
+    if sessid is not None:
+        Session.objects.delete(key=sessid)
+    return redirect('main')
 
 def login_user(request):
     if request.method == 'POST':
@@ -25,6 +34,7 @@ def login_user(request):
         return render(request, 'qa/login.html', {'form':form})
 
 def signup(request):
+    Session.objects.all().delete()
     if request.method == 'POST':
         print('request.POST',request.POST)
         form = SignUpForm(request.POST)
@@ -36,12 +46,11 @@ def signup(request):
             hashpass.password = password
             hashpass.save()
             form.save_m2m()
-            user = authenticate(username=new_user, password=password)
-            if user is not None:
-                login(request, user)
-            print(password)
-            print('Name of user ===============',new_user)
-            print('Name of user ===============',user)
+        user = authenticate(username=new_user, password=password_open)
+        if user is not None:
+            login(request, user)
+        else:
+            print('pizdec', username, password)    
         return redirect('main')
     else:
         form = SignUpForm()
